@@ -1,0 +1,25 @@
+{
+  "samples": [
+    {
+      "sample_id": "NA12878",
+      "library": "lib1",
+      "platform": "ILLUMINA",
+      "fastq_r1": [
+        "/data/NA12878.L1.R1.fastq.gz",
+        "/data/NA12878.L2.R1.fastq.gz"
+      ],
+      "fastq_r2": [
+        "/data/NA12878.L1.R2.fastq.gz",
+        "/data/NA12878.L2.R2.fastq.gz"
+      ],
+      "karyotype": "XX"
+    },
+    {
+      "sample_id": "NA12891",
+      "library": "lib1",
+      "platform": "ILLUMINA",
+      "bam": "/data/NA12891.bam",
+      "karyotype": "XY"
+    }
+  ]
+}

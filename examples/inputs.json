@@ -1,0 +1,53 @@
+{
+  "GenomeFlow.samples": [
+    {
+      "sample_id": "NA12878",
+      "library": "lib1",
+      "platform": "ILLUMINA",
+      "fastq_r1": [
+        "/data/NA12878.L1.R1.fastq.gz",
+        "/data/NA12878.L2.R1.fastq.gz"
+      ],
+      "fastq_r2": [
+        "/data/NA12878.L1.R2.fastq.gz",
+        "/data/NA12878.L2.R2.fastq.gz"
+      ],
+      "karyotype": "XX"
+    },
+    {
+      "sample_id": "NA12891",
+      "library": "lib1",
+      "platform": "ILLUMINA",
+      "fastq_r1": [],
+      "fastq_r2": [],
+      "bam": "/data/NA12891.bam",
+      "karyotype": "XY"
+    },
+    {
+      "sample_id": "NA12892",
+      "library": "lib2",
+      "platform": "ILLUMINA",
+      "fastq_r1": [
+        "/data/NA12892.R1.fastq.gz"
+      ],
+      "fastq_r2": [
+        "/data/NA12892.R2.fastq.gz"
+      ],
+      "karyotype": "XX"
+    }
+  ],
+  "GenomeFlow.fasta": "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna",
+  "GenomeFlow.fasta_index": "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai",
+  "GenomeFlow.bwa_mem3_indexes": [
+    "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.amb",
+    "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.ann",
+    "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.pac",
+    "/ref/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bwt.2bit.64"
+  ],
+  "GenomeFlow.model_type": "WGS",
+  "GenomeFlow.use_gpu": false,
+  "GenomeFlow.detailed_alignment_stats": false,
+  "GenomeFlow.scatter_count": 20,
+  "GenomeFlow.cohort_id": "trio",
+  "GenomeFlow.par_bed": "references/GRCh38.par.bed"
+}

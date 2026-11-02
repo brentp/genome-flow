@@ -1,0 +1,67 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    # Unit tests plus the WDL normalization tests, which need bcftools with
+    # `norm --write-index` (1.21 in Debian trixie, the tools image's base).
+    runs-on: ubuntu-latest
+    container: debian:trixie-slim@sha256:f6b08b09a05725f9431502d3b5714f5c4576e82c1a84fa1debe0c24a7e0c3ec4
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates python3-venv samtools bcftools
+          python3 -m venv /venv
+          /venv/bin/pip install miniwdl==1.15.0
+      - name: Check WDL
+        run: /venv/bin/miniwdl check --suppress UnknownRuntimeKey,CommandShellCheck wdl/genome_flow.wdl
+      - name: Unit tests
+        run: /venv/bin/python -m unittest discover -s tests -v
+
+  integration:
+    # Builds the tools image from this commit, then runs the alignment tests
+    # inside it and the full workflow (alignment, DeepVariant, GLnexus, QC) on
+    # a synthetic two-sample fixture with one and two calling shards.
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      IMAGE: genome-flow-align:ci
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - name: Build tools image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: docker/align.Dockerfile
+          tags: ${{ env.IMAGE }}
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Alignment integration tests
+        run: bash testdata/tiny/run_pipe.sh
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Install miniwdl
+        run: pip install miniwdl==1.15.0
+      - name: Full workflow
+        run: bash testdata/boundary/run.sh
+      - name: Upload workflow logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: boundary-runs
+          path: testdata/boundary/runs

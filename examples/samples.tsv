@@ -1,0 +1,4 @@
+sample_id	library	platform	fastq_r1	fastq_r2	bam	karyotype
+NA12878	lib1	ILLUMINA	/data/NA12878.L1.R1.fastq.gz,/data/NA12878.L2.R1.fastq.gz	/data/NA12878.L1.R2.fastq.gz,/data/NA12878.L2.R2.fastq.gz		XX
+NA12891	lib1	ILLUMINA			/data/NA12891.bam	XY
+NA12892	lib2	ILLUMINA	/data/NA12892.R1.fastq.gz	/data/NA12892.R2.fastq.gz		XX
