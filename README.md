@@ -1,6 +1,6 @@
 WIP that may be abandoned. Trying to write an efficient, but simple workflow to go from FASTQ -> jointly called VCF using new tools like bwa-mem3.
 
-# genome-flow
+# genome-flow [![test](https://github.com/brentp/genome-flow/actions/workflows/test.yml/badge.svg)](https://github.com/brentp/genome-flow/actions/workflows/test.yml)
 
 Germline short-read variant calling for whole genomes and exomes:
 **bwa-mem3 → duplicate marking → CRAM → DeepVariant → GLnexus**, with coverage,
